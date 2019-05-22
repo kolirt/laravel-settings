@@ -38,8 +38,8 @@ settings_sync('group1', $data);
 ```
 settings();
 
-// result
-(object)[
+// result's object
+[
     'group' => [
         'key1' => [
             'subkey1' => [
@@ -62,8 +62,8 @@ settings();
 ```
 setting('group');
 
-// result
-(object)[
+// result's object
+[
     'key1' => [
         'subkey1' => [
             'subsubnkey1' => 1,
@@ -81,9 +81,9 @@ setting('group');
 ```
 setting('group.key1');
 
-// result
+// result's object
 
-(object)[
+[
     'subkey1' => [
         'subsubnkey1' => 1,
         'subsubnkey2' => [
@@ -98,9 +98,9 @@ setting('group.key1');
 ```
 setting('group.key1.subkey1.subsubnkey2');
 
-// result
+// result's object
 
-(object)[
+[
     'test' => 'test'
 ];
 ```

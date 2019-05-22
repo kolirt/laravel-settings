@@ -9,19 +9,24 @@ class Setting extends Model
 
     public $timestamps = false;
 
-    protected $fillable = [
-        'group',
-        'key',
-        'value',
-    ];
+    protected $fillable = ['group', 'key', 'value'];
 
     public static function sync(string $group, array $values)
     {
         foreach ($values as $key => $value) {
-            Setting::where('group', $group)->where('key', $key)->update(['value' => json_encode($value)]);
+            $setting = Setting::firstOrNew(['group' => $group, 'key' => $key]);
+            $setting->value = json_encode($value);
+            $setting->save();
+
+            //            Setting::where('group', $group)->where('key', $key)->update(['value' => json_encode($value)]);
         }
 
         setting('fresh');
+    }
+
+    public function getValueAttribute($value)
+    {
+        return is_json($value) ? json_decode($value, 1) : $value;
     }
 
 }
