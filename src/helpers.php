@@ -46,8 +46,8 @@ if (!function_exists('settings')) {
         $result = $settings;
         
         foreach (explode('.', $key) as $key) {
-            if (isset($settings[$key])) {
-                $result = $settings[$key];
+            if (isset($result[$key])) {
+                $result = $result[$key];
             } else {
                 $result = $default;
                 break;
@@ -55,10 +55,10 @@ if (!function_exists('settings')) {
         }
 
         if (!$no_locale) {
-            if (isset($settings[app()->getLocale()])) {
-                return json_decode(json_encode($settings[app()->getLocale()]));
+            if (isset($result[app()->getLocale()])) {
+                return json_decode(json_encode($result[app()->getLocale()]));
             } else {
-                return json_decode(json_encode($default));
+                return json_decode(json_encode($result));
             }
         }
 
