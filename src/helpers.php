@@ -23,15 +23,15 @@ if (!function_exists('settings')) {
             $time = ($key === 'fresh') ? 0 : 24 * 60;
 
             $settings = Cache::remember('settings', $time, function(){
-                $settings = [];
+                $result = [];
 
                 foreach (Kolirt\Settings\Models\Setting::all()->groupBy('group') as $group => $item) {
                     foreach ($item as $setting) {
-                        $settings[$group][$setting->key] = $setting->value;
+                        $result[$group][$setting->key] = $setting->value;
                     }
                 }
 
-                return $settings;
+                return $result;
             });
 
             if ($key === 'fresh') {
@@ -43,11 +43,13 @@ if (!function_exists('settings')) {
             return json_decode(json_encode($settings));
         }
 
+        $result = $settings;
+        
         foreach (explode('.', $key) as $key) {
             if (isset($settings[$key])) {
-                $settings = $settings[$key];
+                $result = $settings[$key];
             } else {
-                $settings = $default;
+                $result = $default;
                 break;
             }
         }
