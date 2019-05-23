@@ -62,7 +62,7 @@ if (!function_exists('settings')) {
             }
         }
 
-        return json_decode(json_encode($settings));
+        return json_decode(json_encode($result));
     }
 }
 
