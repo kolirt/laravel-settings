@@ -27,15 +27,15 @@ if (!function_exists('settings')) {
             $time = ($key === 'fresh') ? 0 : 24 * 60;
 
             $settings = Cache::remember('settings', $time, function(){
-                $settings = [];
+                $result = [];
 
                 foreach (Kolirt\Settings\Models\Setting::all()->groupBy('group') as $group => $item) {
                     foreach ($item as $setting) {
-                        $settings[$group][$setting->key] = $setting->value;
+                        $result[$group][$setting->key] = $setting->value;
                     }
                 }
 
-                return $settings;
+                return $result;
             });
 
             if ($key === 'fresh') {
@@ -47,29 +47,31 @@ if (!function_exists('settings')) {
             return json_decode(json_encode($settings));
         }
 
+        $result = $settings;
+
         foreach (explode('.', $key) as $key) {
-            if (isset($settings[$key])) {
-                $settings = $settings[$key];
+            if (isset($result[$key])) {
+                $result = $result[$key];
             } else {
-                $settings = $default;
+                $result = $default;
                 break;
             }
         }
 
         if (!$no_locale) {
-            if (isset($settings[app()->getLocale()])) {
-                return json_decode(json_encode($settings[app()->getLocale()]));
+            if (isset($result[app()->getLocale()])) {
+                return json_decode(json_encode($result[app()->getLocale()]));
             } else {
-                return json_decode(json_encode($default));
+                return json_decode(json_encode($result));
             }
         }
 
         if (setting('settings.response', 'object') === 'array') {
-            return $settings;
+            return $result;
         } else if (setting('settings.response', 'object') === 'object') {
-            return json_decode(json_encode($settings));
+            return json_decode(json_encode($result));
         } else if (setting('settings.response', 'object') === 'collect') {
-            return collect($settings);
+            return collect($result);
         }
     }
 }
