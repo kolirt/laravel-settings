@@ -18,7 +18,7 @@ if (!function_exists('settings')) {
     function settings(string $key = null, $default = null, $no_locale = null)
     {
         if (is_null($no_locale)) {
-            $no_locale = !setting('settings.auto_locale', false);
+            $no_locale = !config('settings.auto_locale', false);
         }
 
         static $settings;
