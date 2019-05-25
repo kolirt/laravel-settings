@@ -8,15 +8,19 @@ if (!function_exists('settings_sync')) {
 }
 
 if (!function_exists('setting')) {
-    function setting(string $key, $default = null, $no_locale = true)
+    function setting(string $key, $default = null, $no_locale = null)
     {
         return settings($key, $default, $no_locale);
     }
 }
 
 if (!function_exists('settings')) {
-    function settings(string $key = null, $default = null, $no_locale = true)
+    function settings(string $key = null, $default = null, $no_locale = null)
     {
+        if (is_null($no_locale)) {
+            $no_locale = !setting('settings.auto_locale', false);
+        }
+
         static $settings;
 
         if (is_null($settings) || $key === 'fresh') {
@@ -60,7 +64,13 @@ if (!function_exists('settings')) {
             }
         }
 
-        return json_decode(json_encode($settings));
+        if (setting('settings.response', 'object') === 'array') {
+            return $settings;
+        } else if (setting('settings.response', 'object') === 'object') {
+            return json_decode(json_encode($settings));
+        } else if (setting('settings.response', 'object') === 'collect') {
+            return collect($settings);
+        }
     }
 }
 

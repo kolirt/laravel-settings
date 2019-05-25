@@ -1,12 +1,18 @@
 # Laravel Settings 
+Package tested with Laravel 5.8. Other versions are not tested.
+
+| Laravel version  | Tested  |
+| ---------------- | ------- |
+| 5.8.*            | ✅      |
 
 ## Installation
 ```
 $ composer require kolirt/laravel-settings
 ```
 ```
-$ php artisan migrate
+$ php artisan settings:install
 ```
+Configure translations config on config/settings.php path.
 
 ## Methods
 
@@ -38,7 +44,7 @@ settings_sync('group1', $data);
 ```
 settings();
 
-// result's object
+// result
 [
     'group' => [
         'key1' => [
@@ -62,7 +68,7 @@ settings();
 ```
 setting('group');
 
-// result's object
+// result
 [
     'key1' => [
         'subkey1' => [
@@ -81,7 +87,7 @@ setting('group');
 ```
 setting('group.key1');
 
-// result's object
+// result
 
 [
     'subkey1' => [
@@ -98,7 +104,7 @@ setting('group.key1');
 ```
 setting('group.key1.subkey1.subsubnkey2');
 
-// result's object
+// result
 
 [
     'test' => 'test'

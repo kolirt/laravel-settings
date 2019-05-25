@@ -17,8 +17,6 @@ class Setting extends Model
             $setting = Setting::firstOrNew(['group' => $group, 'key' => $key]);
             $setting->value = json_encode($value);
             $setting->save();
-
-            //            Setting::where('group', $group)->where('key', $key)->update(['value' => json_encode($value)]);
         }
 
         setting('fresh');
