@@ -43,34 +43,30 @@ if (!function_exists('settings')) {
             }
         }
 
-        if (is_null($key)) {
-            return json_decode(json_encode($settings));
-        }
-
         $result = $settings;
 
-        foreach (explode('.', $key) as $key) {
-            if (isset($result[$key])) {
-                $result = $result[$key];
-            } else {
-                $result = $default;
-                break;
+        if (!is_null($key)) {
+            foreach (explode('.', $key) as $key) {
+                if (isset($result[$key])) {
+                    $result = $result[$key];
+                } else {
+                    $result = $default;
+                    break;
+                }
             }
         }
 
         if (!$no_locale) {
             if (isset($result[app()->getLocale()])) {
-                return json_decode(json_encode($result[app()->getLocale()]));
-            } else {
-                return json_decode(json_encode($result));
+                $result = $result[app()->getLocale()];
             }
         }
 
-        if (setting('settings.response', 'object') === 'array') {
+        if (config('settings.response', 'object') === 'array') {
             return $result;
-        } else if (setting('settings.response', 'object') === 'object') {
+        } else if (config('settings.response', 'object') === 'object') {
             return json_decode(json_encode($result));
-        } else if (setting('settings.response', 'object') === 'collect') {
+        } else if (config('settings.response', 'object') === 'collect') {
             return collect($result);
         }
     }
