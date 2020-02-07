@@ -31,5 +31,9 @@ class ServiceProvider extends BaseServiceProvider
     public function register()
     {
         $this->commands($this->commands);
+
+        app()->bind('settings', function () {
+            return new Setting;
+        });
     }
 }

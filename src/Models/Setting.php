@@ -11,20 +11,8 @@ class Setting extends Model
 
     protected $fillable = ['group', 'key', 'value'];
 
-    public static function sync(string $group, array $values)
-    {
-        foreach ($values as $key => $value) {
-            $setting = Setting::firstOrNew(['group' => $group, 'key' => $key]);
-            $setting->value = json_encode($value);
-            $setting->save();
-        }
-
-        setting('fresh');
-    }
-
-    public function getValueAttribute($value)
-    {
-        return is_json($value) ? json_decode($value, 1) : $value;
-    }
+    protected $casts = [
+        'value' => 'json'
+    ];
 
 }
