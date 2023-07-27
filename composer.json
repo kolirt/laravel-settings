@@ -1,0 +1,34 @@
+{
+  "name": "kolirt/laravel-settings",
+  "description": "Package for settings",
+  "keywords": [
+    "laravel",
+    "settings"
+  ],
+  "license": "MIT",
+  "version": "1.2.0",
+  "authors": [
+    {
+      "name": "kolirt"
+    }
+  ],
+  "require": {},
+  "autoload": {
+    "files": [
+      "src/helpers.php"
+    ],
+    "psr-4": {
+      "Kolirt\\Settings\\": "src"
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Kolirt\\Settings\\ServiceProvider"
+      ],
+      "aliases": {
+        "Settings": "Kolirt\\Settings\\Facade\\Settings"
+      }
+    }
+  }
+}
