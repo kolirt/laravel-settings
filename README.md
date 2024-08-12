@@ -5,6 +5,7 @@
   - [Requirements](#requirements)
   - [Installation](#installation)
   - [Setup](#setup)
+- [Usage](#usage)
 - [Console commands](#console-commands)
 - [FAQ](#faq)
 - [License](#license)
@@ -39,7 +40,73 @@ php artisan migrate
 - `settings:install` - Install settings package
 - `settings:publish-config` - Publish the config file
 - `settings:publish-migrations` - Publish migration files
-- `settings:flush` - Flush cache
+- `settings:flush-cache` - Flush cache
+
+
+# Usage
+
+## Set value
+```php
+use Kolirt\Settings\Facades\Setting;
+
+Setting::set('string', 'value');
+
+Setting::set('array', [0, 1, 2]);
+Setting::set('array.0', 'new value with index 0');
+```
+
+
+## Get all values
+```php
+use Kolirt\Settings\Facades\Setting;
+
+Setting::all();
+/**
+ * Returns
+ * 
+ * [
+ *   'string' => 'value',
+ *   'array' => ['new value with index 0', 1, 2]
+ * ]
+ */
+```
+
+
+## Get value
+```php
+use Kolirt\Settings\Facades\Setting;
+
+Setting::get('string'); // 'value'
+
+Setting::get('array'); // ['new value with index 0', 1, 2]
+Setting::get('array.0'); // 'new value with index 0'
+
+// or via helper
+
+setting('string'); // 'value'
+
+setting('array'); // ['new value with index 0', 1, 2]
+setting('array.0'); // 'new value with index 0'
+```
+
+
+## Delete value
+```php
+use Kolirt\Settings\Facades\Setting;
+
+Setting::delete('string');
+
+Setting::delete('array'); // delete all array values
+Setting::delete('array.0'); // delete array value with index 0
+```
+
+
+## Flush cache
+```php
+use Kolirt\Settings\Facades\Setting;
+
+Setting::flushCache();
+```
 
 
 # FAQ
@@ -48,6 +115,7 @@ Check closed [issues](#) to get answers for most asked questions
 
 # License
 [MIT](LICENSE.txt)
+
 
 # Other packages
 Check out my other packages on my [GitHub profile](https://github.com/kolirt)

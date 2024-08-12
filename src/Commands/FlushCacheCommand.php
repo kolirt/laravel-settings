@@ -5,10 +5,10 @@ namespace Kolirt\Settings\Commands;
 use Illuminate\Console\Command;
 use Kolirt\Settings\Facades\Setting;
 
-class FlushCommand extends Command
+class FlushCacheCommand extends Command
 {
 
-    protected $signature = 'settings:flush';
+    protected $signature = 'settings:flush-cache';
 
     protected $description = 'Flush cache';
 

@@ -9,7 +9,7 @@ class ServiceProvider extends BaseServiceProvider
 {
 
     protected array $commands = [
-        Commands\FlushCommand::class,
+        Commands\FlushCacheCommand::class,
         Commands\InstallCommand::class,
         Commands\PublishConfigConsoleCommand::class,
         Commands\PublishMigrationsConsoleCommand::class,
