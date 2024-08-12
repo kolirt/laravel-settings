@@ -1,10 +1,12 @@
 {
     "name": "kolirt/laravel-settings",
     "description": "Package for settings",
+    "type": "library",
     "keywords": [
         "laravel",
         "settings"
     ],
+    "homepage": "https://github.com/kolirt/laravel-settings",
     "license": "MIT",
     "version": "2.0.0",
     "authors": [
