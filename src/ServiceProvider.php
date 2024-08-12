@@ -3,33 +3,43 @@
 namespace Kolirt\Settings;
 
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
+use Kolirt\Settings\Core\Setting;
 
 class ServiceProvider extends BaseServiceProvider
 {
 
-    protected $commands = [
-        Commands\InstallCommand::class
+    protected array $commands = [
+        Commands\FlushCommand::class,
+        Commands\InstallCommand::class,
+        Commands\PublishConfigConsoleCommand::class,
+        Commands\PublishMigrationsConsoleCommand::class,
     ];
 
-    /**
-     * Bootstrap any application services.
-     */
-    public function boot()
+    public function boot(): void
     {
-        $this->loadMigrationsFrom(__DIR__ . '/Migrations');
-
         $this->mergeConfigFrom(__DIR__ . '/../config/settings.php', 'settings');
+
+        $this->publishFiles();
+    }
+
+    public function register(): void
+    {
+        $this->commands($this->commands);
+
+        $this->app->singleton(Setting::class, function () {
+            return new Setting;
+        });
+    }
+
+    private function publishFiles(): void
+    {
+        $this->publishesMigrations([
+            __DIR__ . '/../database/migrations' => database_path('migrations')
+        ], 'migrations');
 
         $this->publishes([
             __DIR__ . '/../config/settings.php' => config_path('settings.php')
-        ]);
+        ], 'config');
     }
 
-    /**
-     * Register any application services.
-     */
-    public function register()
-    {
-        $this->commands($this->commands);
-    }
 }

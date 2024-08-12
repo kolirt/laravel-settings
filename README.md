@@ -1,117 +1,53 @@
 # Laravel Settings 
-Package tested with Laravel 5.8. Other versions are not tested.
 
-| Laravel version  | Tested  |
-| ---------------- | ------- |
-| 5.8.*            | ✅      |
+# Structure
+- [Getting started](#getting-started)
+  - [Requirements](#requirements)
+  - [Installation](#installation)
+  - [Setup](#setup)
+- [Console commands](#console-commands)
+- [FAQ](#faq)
+- [License](#license)
+- [Other packages](#other-packages)
+
+<a href="https://www.buymeacoffee.com/kolirt" target="_blank">
+  <img src="https://cdn.buymeacoffee.com/buttons/v2/arial-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" >
+</a>
+
+
+# Getting started
+
+## Requirements
+- PHP >= 8.1
+- Laravel >= 10
+
 
 ## Installation
-```
-$ composer require kolirt/laravel-settings
-```
-```
-$ php artisan settings:install
-```
-Configure translations config on config/settings.php path.
-
-## Methods
-
-#### Sync data (settings_sync)
-```
-$data = [
-    'key1' => [
-        'subkey1' => [
-            'subsubnkey1' => 1,
-            'subsubnkey2' => [
-                'test' => 'test'
-            ]
-        ],
-        'subkey2' => 2
-    ],
-    'key2' => []
-];
-
-settings_sync('group', $data);
-
-$data = [
-    'key' => 1
-];
-
-settings_sync('group1', $data);
+```bash
+composer require kolirt/laravel-settings
 ```
 
-#### Get all (settings)
-```
-settings();
+## Setup
+```bash
+php artisan settings:install
 
-// result
-[
-    'group' => [
-        'key1' => [
-            'subkey1' => [
-                'subsubnkey1' => 1,
-                'subsubnkey2' => [
-                    'test' => 'test'
-                ]
-            ],
-            'subkey2' => 2
-        ],
-        'key2' => []
-    ],
-    'group1' => [
-        'key' => 1
-    ]
-];
+php artisan migrate
 ```
 
-#### Get by group name (setting)
-```
-setting('group');
 
-// result
-[
-    'key1' => [
-        'subkey1' => [
-            'subsubnkey1' => 1,
-            'subsubnkey2' => [
-                'test' => 'test'
-            ]
-        ],
-        'subkey2' => 2
-    ],
-    'key2' => []
-];
-```
+# Console commands
+- `settings:install` - Install settings package
+- `settings:publish-config` - Publish the config file
+- `settings:publish-migrations` - Publish migration files
+- `settings:flush` - Flush cache
 
-#### Get by group name and key (setting)
-```
-setting('group.key1');
 
-// result
+# FAQ
+Check closed [issues](#) to get answers for most asked questions
 
-[
-    'subkey1' => [
-        'subsubnkey1' => 1,
-        'subsubnkey2' => [
-            'test' => 'test'
-        ]
-    ],
-    'subkey2' => 2
-];
-```
 
-#### Parse (setting)
-```
-setting('group.key1.subkey1.subsubnkey2');
+# License
+[MIT](LICENSE.txt)
 
-// result
-
-[
-    'test' => 'test'
-];
-```
-
-### Refresh cache
-```
-setting('fresh');
-```
+# Other packages
+Check out my other packages on my [GitHub profile](https://github.com/kolirt)

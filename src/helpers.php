@@ -1,83 +1,60 @@
 <?php
 
-if (!function_exists('settings_sync')) {
-    function settings_sync(string $group, array $values)
+
+if (!function_exists('array_to_object')) {
+    function array_to_object($array)
     {
-        Kolirt\Settings\Models\Setting::sync($group, $values);
+        if (is_array($array)) {
+            return (object)array_map('array_to_object', $array);
+        }
+        return $array;
+    }
+}
+
+if (!function_exists('array_to_collection')) {
+    function array_to_collection($array)
+    {
+        if (is_array($array)) {
+            return collect(array_map('array_to_collection', $array));
+        }
+        return $array;
+    }
+}
+
+if (!function_exists('is_serial')) {
+    function is_serial($data): bool
+    {
+        if (!is_string($data)) {
+            return false;
+        }
+
+        return ($data === 'b:0;' || @unserialize($data) !== false);
+    }
+}
+
+if (!function_exists('deep_serialize')) {
+    function deep_serialize($array)
+    {
+        if (is_array($array)) {
+            return array_map('deep_serialize', $array);
+        }
+        return is_object($array) ? serialize($array) : $array;
+    }
+}
+
+if (!function_exists('deep_unserialize')) {
+    function deep_unserialize($array)
+    {
+        if (is_array($array)) {
+            return array_map('deep_unserialize', $array);
+        }
+        return is_serial($array) ? unserialize($array) : $array;
     }
 }
 
 if (!function_exists('setting')) {
-    function setting(string $key, $default = null, $no_locale = null)
+    function setting(string $key_path, mixed $default = null)
     {
-        return settings($key, $default, $no_locale);
-    }
-}
-
-if (!function_exists('settings')) {
-    function settings(string $key = null, $default = null, $no_locale = null)
-    {
-        if (is_null($no_locale)) {
-            $no_locale = !config('settings.auto_locale', false);
-        }
-
-        static $settings;
-
-        if ($key === 'fresh') {
-            Cache::forget('settings');
-            $settings = null;
-            return true;
-        }
-
-        if (is_null($settings)) {
-            $time = 24 * 60;
-
-            $settings = Cache::remember('settings', $time, function () {
-                $result = [];
-
-                foreach (Kolirt\Settings\Models\Setting::all()->groupBy('group') as $group => $item) {
-                    foreach ($item as $setting) {
-                        $result[$group][$setting->key] = $setting->value;
-                    }
-                }
-
-                return $result;
-            });
-        }
-
-        $result = $settings;
-
-        if (!is_null($key)) {
-            foreach (explode('.', $key) as $key) {
-                if (isset($result[$key])) {
-                    $result = $result[$key];
-                } else {
-                    $result = $default;
-                    break;
-                }
-            }
-        }
-
-        if (!$no_locale) {
-            if (isset($result[app()->getLocale()])) {
-                $result = $result[app()->getLocale()];
-            }
-        }
-
-        if (config('settings.response', 'object') === 'array') {
-            return $result;
-        } else if (config('settings.response', 'object') === 'object') {
-            return json_decode(json_encode($result));
-        } else if (config('settings.response', 'object') === 'collect') {
-            return collect($result);
-        }
-    }
-}
-
-if (!function_exists('is_json')) {
-    function is_json($string)
-    {
-        json_decode($string);
-        return (json_last_error() == JSON_ERROR_NONE);
+        return \Kolirt\Settings\Facades\Setting::get($key_path, $default);
     }
 }
