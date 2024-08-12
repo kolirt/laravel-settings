@@ -7,7 +7,7 @@ Package tested with Laravel 5.8. Other versions are not tested.
 
 ## Installation
 ```
-$ composer require kolirt/laravel-settings
+$ composer require kolirt/laravel-settings ^1
 ```
 ```
 $ php artisan settings:install
