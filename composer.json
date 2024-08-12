@@ -1,5 +1,5 @@
 {
-    "name": "packages/laravel-settings",
+    "name": "kolirt/laravel-settings",
     "description": "Package for settings",
     "keywords": [
         "laravel",
