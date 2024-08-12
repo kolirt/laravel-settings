@@ -22,11 +22,14 @@
 - PHP >= 8.1
 - Laravel >= 10
 
+For lesser versions of Laravel or PHP, use the [v1](https://github.com/kolirt/laravel-settings/tree/v1)
+
 
 ## Installation
 ```bash
 composer require kolirt/laravel-settings
 ```
+
 
 ## Setup
 ```bash
@@ -45,7 +48,7 @@ php artisan migrate
 
 # Usage
 
-## Set value
+### Set value
 ```php
 use Kolirt\Settings\Facades\Setting;
 
@@ -56,7 +59,7 @@ Setting::set('array.0', 'new value with index 0');
 ```
 
 
-## Get all values
+### Get all values
 ```php
 use Kolirt\Settings\Facades\Setting;
 
@@ -72,7 +75,7 @@ Setting::all();
 ```
 
 
-## Get value
+### Get value
 ```php
 use Kolirt\Settings\Facades\Setting;
 
@@ -90,7 +93,7 @@ setting('array.0'); // 'new value with index 0'
 ```
 
 
-## Delete value
+### Delete value
 ```php
 use Kolirt\Settings\Facades\Setting;
 
@@ -101,7 +104,7 @@ Setting::delete('array.0'); // delete array value with index 0
 ```
 
 
-## Flush cache
+### Flush cache
 ```php
 use Kolirt\Settings\Facades\Setting;
 
@@ -110,7 +113,7 @@ Setting::flushCache();
 
 
 # FAQ
-Check closed [issues](#) to get answers for most asked questions
+Check closed [issues](https://github.com/kolirt/laravel-settings/issues) to get answers for most asked questions
 
 
 # License
