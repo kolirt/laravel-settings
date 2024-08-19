@@ -7,7 +7,7 @@ Package for managing settings in a Laravel projects
   - [Requirements](#requirements)
   - [Installation](#installation)
   - [Setup](#setup)
-- [Usage](#usage)
+- [Methods](#methods)
   - [Set value](#set-value)
   - [Get all values](#get-all-values)
   - [Get value](#get-value)
@@ -53,9 +53,11 @@ php artisan migrate
 - `settings:flush-cache` - Flush cache
 
 
-## Usage
+## Methods
 
-### Set value
+### `set`
+The `set` method is used to set a value in the settings
+
 ```php
 use Kolirt\Settings\Facades\Setting;
 
@@ -66,7 +68,9 @@ Setting::set('array.0', 'new value with index 0');
 ```
 
 
-### Get all values
+### `all`
+The `all` method is used to get all settings
+
 ```php
 use Kolirt\Settings\Facades\Setting;
 
@@ -82,7 +86,9 @@ Setting::all();
 ```
 
 
-### Get value
+### `get`
+The `get` method is used to get a value from the settings
+
 ```php
 use Kolirt\Settings\Facades\Setting;
 
@@ -100,7 +106,9 @@ setting('array.0'); // 'new value with index 0'
 ```
 
 
-### Delete value
+### `delete`
+The `delete` method is used to delete a value from the settings
+
 ```php
 use Kolirt\Settings\Facades\Setting;
 
@@ -111,7 +119,9 @@ Setting::delete('array.0'); // delete array value with index 0
 ```
 
 
-### Flush cache
+### `flushCache`
+The `flushCache` method is used to flush the cache
+
 ```php
 use Kolirt\Settings\Facades\Setting;
 
