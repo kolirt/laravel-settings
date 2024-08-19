@@ -1,6 +1,6 @@
 # Laravel Settings 
 
-# Structure
+## Structure
 - [Getting started](#getting-started)
   - [Requirements](#requirements)
   - [Installation](#installation)
@@ -21,7 +21,7 @@
 </a>
 
 
-# Getting started
+## Getting started
 
 ## Requirements
 - PHP >= 8.1
@@ -51,7 +51,7 @@ php artisan migrate
 - `settings:flush-cache` - Flush cache
 
 
-# Usage
+## Usage
 
 ### Set value
 ```php
@@ -117,13 +117,13 @@ Setting::flushCache();
 ```
 
 
-# FAQ
+## FAQ
 Check closed [issues](https://github.com/kolirt/laravel-settings/issues) to get answers for most asked questions
 
 
-# License
+## License
 [MIT](LICENSE.txt)
 
 
-# Other packages
+## Other packages
 Check out my other packages on my [GitHub profile](https://github.com/kolirt)
