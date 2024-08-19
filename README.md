@@ -1,4 +1,6 @@
 # Laravel Settings 
+Package for managing settings in a Laravel projects
+
 
 ## Structure
 - [Getting started](#getting-started)
