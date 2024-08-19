@@ -68,7 +68,7 @@ Setting::set('array.0', 'new value with index 0');
 ```
 
 
-### `all`
+#### `all`
 The `all` method is used to get all settings
 
 ```php
@@ -86,7 +86,7 @@ Setting::all();
 ```
 
 
-### `get`
+#### `get`
 The `get` method is used to get a value from the settings
 
 ```php
@@ -106,7 +106,7 @@ setting('array.0'); // 'new value with index 0'
 ```
 
 
-### `delete`
+#### `delete`
 The `delete` method is used to delete a value from the settings
 
 ```php
@@ -119,7 +119,7 @@ Setting::delete('array.0'); // delete array value with index 0
 ```
 
 
-### `flushCache`
+#### `flushCache`
 The `flushCache` method is used to flush the cache
 
 ```php
