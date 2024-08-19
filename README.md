@@ -55,7 +55,7 @@ php artisan migrate
 
 ## Methods
 
-### `set`
+#### `set`
 The `set` method is used to set a value in the settings
 
 ```php
