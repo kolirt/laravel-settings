@@ -25,20 +25,20 @@ Package for managing settings in a Laravel projects
 
 ## Getting started
 
-## Requirements
+### Requirements
 - PHP >= 8.1
 - Laravel >= 10
 
 For lesser versions of Laravel or PHP, use the [v1](https://github.com/kolirt/laravel-settings/tree/v1)
 
 
-## Installation
+### Installation
 ```bash
 composer require kolirt/laravel-settings
 ```
 
 
-## Setup
+### Setup
 ```bash
 php artisan settings:install
 
@@ -46,7 +46,7 @@ php artisan migrate
 ```
 
 
-# Console commands
+## Console commands
 - `settings:install` - Install settings package
 - `settings:publish-config` - Publish the config file
 - `settings:publish-migrations` - Publish migration files
