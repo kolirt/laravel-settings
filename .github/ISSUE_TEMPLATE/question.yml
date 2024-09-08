@@ -13,7 +13,7 @@ body:
       label: Package version
       description: |
         Leave blank if you have not yet configured the package and have not used it.
-      placeholder: v4.0.0
+      placeholder: v2.0.0
   - type: textarea
     id: description
     attributes:
