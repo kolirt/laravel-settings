@@ -1,39 +1,39 @@
 {
-    "name": "kolirt/laravel-settings",
-    "description": "Package for settings",
-    "type": "library",
-    "keywords": [
-        "laravel",
-        "settings"
-    ],
-    "homepage": "https://github.com/kolirt/laravel-settings",
-    "license": "MIT",
-    "version": "2.0.0",
-    "authors": [
-        {
-            "name": "kolirt"
-        }
-    ],
-    "require": {
-        "php": ">=8.1",
-        "laravel/framework": "^10.0 | ^11.0"
-    },
-    "autoload": {
-        "psr-4": {
-            "Kolirt\\Settings\\": "src"
-        },
-        "files": [
-            "src/helpers.php"
-        ]
-    },
-    "extra": {
-        "laravel": {
-            "providers": [
-                "Kolirt\\Settings\\ServiceProvider"
-            ],
-            "aliases": {
-                "Settings": "Kolirt\\Settings\\Facade\\Settings"
-            }
-        }
+  "name": "kolirt/laravel-settings",
+  "description": "Package for settings",
+  "type": "library",
+  "keywords": [
+    "laravel",
+    "settings"
+  ],
+  "homepage": "https://github.com/kolirt/laravel-settings",
+  "license": "MIT",
+  "version": "2.0.1",
+  "authors": [
+    {
+      "name": "kolirt"
     }
+  ],
+  "require": {
+    "php": ">=8.1",
+    "laravel/framework": ">=10.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Kolirt\\Settings\\": "src"
+    },
+    "files": [
+      "src/helpers.php"
+    ]
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Kolirt\\Settings\\ServiceProvider"
+      ],
+      "aliases": {
+        "Settings": "Kolirt\\Settings\\Facade\\Settings"
+      }
+    }
+  }
 }
