@@ -3,7 +3,9 @@
 namespace Kolirt\Settings;
 
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
+use Illuminate\Queue\Events\JobProcessed;
 use Kolirt\Settings\Core\Setting;
+use Kolirt\Settings\Listeners\ResetSettingsAfterJob;
 
 class ServiceProvider extends BaseServiceProvider
 {
@@ -18,6 +20,8 @@ class ServiceProvider extends BaseServiceProvider
     public function boot(): void
     {
         $this->publishFiles();
+
+        $this->app['events']->listen(JobProcessed::class, ResetSettingsAfterJob::class);
     }
 
     public function register(): void

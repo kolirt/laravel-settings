@@ -56,11 +56,11 @@ To ensure proper operation with Laravel Octane (RoadRunner or Swoole) and state 
         \Kolirt\Settings\Core\Setting::class,
     ],
     ```
-3. Add `\Kolirt\Settings\Resetters\SettingsResetter::class` to the `listeners[OperationTerminated::class]` array in `config/octane.php` to reset internal state after each request:
+3. Add `\Kolirt\Settings\Octane\FlushSettings::class` to the `listeners[OperationTerminated::class]` array in `config/octane.php` to reset internal state after each request:
    ```php
     'listeners' => [
         OperationTerminated::class => [
-            \Kolirt\Settings\Resetters\SettingsResetter::class,
+            \Kolirt\Settings\Octane\FlushSettings::class,
         ]
     ],
    ```

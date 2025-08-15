@@ -1,10 +1,10 @@
 <?php
 
-namespace Kolirt\Settings\Resetters;
+namespace Kolirt\Settings\Listeners;
 
 use Kolirt\Settings\Core\Setting;
 
-class SettingsResetter
+class ResetSettingsAfterJob
 {
     public function handle($event)
     {
