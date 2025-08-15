@@ -6,7 +6,7 @@ use Kolirt\Settings\Core\Setting;
 
 class SettingsResetter
 {
-    public function terminate($event)
+    public function handle($event)
     {
         /** @var Setting $settings */
         $settings = app(Setting::class);
