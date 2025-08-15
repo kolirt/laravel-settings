@@ -2,19 +2,14 @@
 
 namespace Kolirt\Settings\Resetters;
 
-use Closure;
 use Kolirt\Settings\Core\Setting;
-use Laravel\Octane\Contracts\OperationTerminated;
 
-class SettingsResetter implements OperationTerminated
+class SettingsResetter
 {
-    public function terminate(array $serverState): Closure
+    public function terminate($event)
     {
-        return function ($sandbox) {
-            /** @var Setting $setting */
-            $setting = $sandbox->app->make(Setting::class);
-            $setting->reset();
-            return $sandbox;
-        };
+        /** @var Setting $settings */
+        $settings = app(Setting::class);
+        $settings->reset();
     }
 }
