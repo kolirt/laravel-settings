@@ -8,9 +8,14 @@ use Illuminate\Support\Facades\DB;
 class Setting
 {
 
-    private array $data;
+    private ?array $data = null;
 
     public function __construct()
+    {
+        $this->load();
+    }
+
+    public function load(): void
     {
         $this->data = Cache::remember('settings', config('settings.cache_time'), function () {
             $result = [];
@@ -24,8 +29,17 @@ class Setting
         });
     }
 
+    public function reset(): void
+    {
+        $this->data = null;
+    }
+
     public function all()
     {
+        if ($this->data === null) {
+            $this->load();
+        }
+
         return match (config('settings.response')) {
             'object' => array_to_object($this->data),
             'collect' => array_to_collection($this->data),
@@ -35,6 +49,10 @@ class Setting
 
     public function get(string $key_path, mixed $default = null)
     {
+        if ($this->data === null) {
+            $this->load();
+        }
+
         $result = $this->data;
 
         foreach (explode('.', $key_path) as $key_path) {
@@ -55,6 +73,10 @@ class Setting
 
     public function set(string $key_path, mixed $value)
     {
+        if ($this->data === null) {
+            $this->load();
+        }
+
         $keys = explode('.', $key_path);
         $base_key = array_shift($keys);
 
@@ -94,6 +116,10 @@ class Setting
 
     public function del(string $key_path): bool
     {
+        if ($this->data === null) {
+            $this->load();
+        }
+
         $keys = explode('.', $key_path);
         $base_key = array_shift($keys);
 
@@ -128,6 +154,7 @@ class Setting
     public function flushCache(): bool
     {
         Cache::forget('settings');
+        $this->reset();
         return true;
     }
 

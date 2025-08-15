@@ -7,6 +7,7 @@ Package for managing settings in a Laravel projects
   - [Requirements](#requirements)
   - [Installation](#installation)
   - [Setup](#setup)
+  - [Compatibility with Laravel Octane](#compatibility-with-laravel-octane)
 - [Methods](#methods)
   - [Set value](#set-value)
   - [Get all values](#get-all-values)
@@ -44,6 +45,27 @@ php artisan settings:install
 
 php artisan migrate
 ```
+
+
+### Compatibility with Laravel Octane
+To ensure proper operation with Laravel Octane (RoadRunner or Swoole) and state synchronization across workers:
+1. Use a shared cache store (e.g., 'redis') in `config/cache.php` or via `CACHE_STORE=redis` in `.env`.
+2. Add `\Kolirt\Settings\Core\Setting::class` to the warm array in `config/octane.php` to initialize the singleton at worker startup:
+    ```php
+    'warm' => [
+        \Kolirt\Settings\Core\Setting::class,
+    ],
+    ```
+3. Add `\Kolirt\Settings\Resetters\SettingsResetter::class` to the resetters array in `config/octane.php` to reset internal state after each request:
+   ```php
+   'resetters' => [
+        \Kolirt\Settings\Resetters\SettingsResetter::class,
+    ],
+   ```
+4. Restart Octane after changes: `php artisan octane:reload`.
+
+This ensures settings are reloaded from the shared cache or database for each request, keeping workers synchronized.
+
 
 
 ## Console commands

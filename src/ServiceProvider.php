@@ -17,13 +17,13 @@ class ServiceProvider extends BaseServiceProvider
 
     public function boot(): void
     {
-        $this->mergeConfigFrom(__DIR__ . '/../config/settings.php', 'settings');
-
         $this->publishFiles();
     }
 
     public function register(): void
     {
+        $this->mergeConfigFrom(__DIR__ . '/../config/settings.php', 'settings');
+
         $this->commands($this->commands);
 
         $this->app->singleton(Setting::class, function () {
@@ -31,7 +31,7 @@ class ServiceProvider extends BaseServiceProvider
         });
     }
 
-    private function publishFiles(): void
+    protected function publishFiles(): void
     {
         $this->publishesMigrations([
             __DIR__ . '/../database/migrations' => database_path('migrations')
@@ -41,5 +41,4 @@ class ServiceProvider extends BaseServiceProvider
             __DIR__ . '/../config/settings.php' => config_path('settings.php')
         ], 'config');
     }
-
 }
