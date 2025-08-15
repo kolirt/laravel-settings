@@ -56,10 +56,12 @@ To ensure proper operation with Laravel Octane (RoadRunner or Swoole) and state 
         \Kolirt\Settings\Core\Setting::class,
     ],
     ```
-3. Add `\Kolirt\Settings\Resetters\SettingsResetter::class` to the resetters array in `config/octane.php` to reset internal state after each request:
+3. Add `\Kolirt\Settings\Resetters\SettingsResetter::class` to the `listeners[OperationTerminated::class]` array in `config/octane.php` to reset internal state after each request:
    ```php
-   'resetters' => [
-        \Kolirt\Settings\Resetters\SettingsResetter::class,
+    'listeners' => [
+        OperationTerminated::class => [
+            \Kolirt\Settings\Resetters\SettingsResetter::class,
+        ]
     ],
    ```
 4. Restart Octane after changes: `php artisan octane:reload`.
